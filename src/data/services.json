@@ -1,0 +1,241 @@
+{
+  "categories": [
+    {
+      "id": 1,
+      "name": "Instagram",
+      "icon": "instagram",
+      "services": [
+        {
+          "id": 101,
+          "name": "Instagram Followers",
+          "description": "High quality Instagram followers",
+          "price": 0.50,
+          "minOrder": 100,
+          "maxOrder": 10000,
+          "category": "Followers"
+        },
+        {
+          "id": 102,
+          "name": "Instagram Likes",
+          "description": "Real Instagram likes for your posts",
+          "price": 0.30,
+          "minOrder": 50,
+          "maxOrder": 5000,
+          "category": "Likes"
+        },
+        {
+          "id": 103,
+          "name": "Instagram Views",
+          "description": "Instagram video views",
+          "price": 0.20,
+          "minOrder": 100,
+          "maxOrder": 50000,
+          "category": "Views"
+        },
+        {
+          "id": 104,
+          "name": "Instagram Comments",
+          "description": "Custom Instagram comments",
+          "price": 1.50,
+          "minOrder": 10,
+          "maxOrder": 1000,
+          "category": "Comments"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Facebook",
+      "icon": "facebook",
+      "services": [
+        {
+          "id": 201,
+          "name": "Facebook Page Likes",
+          "description": "Real Facebook page likes",
+          "price": 0.80,
+          "minOrder": 100,
+          "maxOrder": 10000,
+          "category": "Likes"
+        },
+        {
+          "id": 202,
+          "name": "Facebook Post Likes",
+          "description": "Facebook post likes",
+          "price": 0.40,
+          "minOrder": 50,
+          "maxOrder": 5000,
+          "category": "Likes"
+        },
+        {
+          "id": 203,
+          "name": "Facebook Followers",
+          "description": "Facebook profile followers",
+          "price": 0.60,
+          "minOrder": 100,
+          "maxOrder": 10000,
+          "category": "Followers"
+        },
+        {
+          "id": 204,
+          "name": "Facebook Video Views",
+          "description": "Facebook video views",
+          "price": 0.25,
+          "minOrder": 100,
+          "maxOrder": 100000,
+          "category": "Views"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "YouTube",
+      "icon": "youtube",
+      "services": [
+        {
+          "id": 301,
+          "name": "YouTube Subscribers",
+          "description": "Real YouTube subscribers",
+          "price": 2.50,
+          "minOrder": 50,
+          "maxOrder": 5000,
+          "category": "Subscribers"
+        },
+        {
+          "id": 302,
+          "name": "YouTube Views",
+          "description": "High retention YouTube views",
+          "price": 0.15,
+          "minOrder": 100,
+          "maxOrder": 100000,
+          "category": "Views"
+        },
+        {
+          "id": 303,
+          "name": "YouTube Likes",
+          "description": "YouTube video likes",
+          "price": 0.70,
+          "minOrder": 50,
+          "maxOrder": 10000,
+          "category": "Likes"
+        },
+        {
+          "id": 304,
+          "name": "YouTube Comments",
+          "description": "Custom YouTube comments",
+          "price": 3.00,
+          "minOrder": 5,
+          "maxOrder": 500,
+          "category": "Comments"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Twitter",
+      "icon": "twitter",
+      "services": [
+        {
+          "id": 401,
+          "name": "Twitter Followers",
+          "description": "Real Twitter followers",
+          "price": 1.20,
+          "minOrder": 100,
+          "maxOrder": 10000,
+          "category": "Followers"
+        },
+        {
+          "id": 402,
+          "name": "Twitter Likes",
+          "description": "Twitter post likes",
+          "price": 0.50,
+          "minOrder": 50,
+          "maxOrder": 5000,
+          "category": "Likes"
+        },
+        {
+          "id": 403,
+          "name": "Twitter Retweets",
+          "description": "Twitter retweets",
+          "price": 0.80,
+          "minOrder": 25,
+          "maxOrder": 2500,
+          "category": "Retweets"
+        },
+        {
+          "id": 404,
+          "name": "Twitter Views",
+          "description": "Twitter video views",
+          "price": 0.10,
+          "minOrder": 100,
+          "maxOrder": 50000,
+          "category": "Views"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "name": "TikTok",
+      "icon": "tiktok",
+      "services": [
+        {
+          "id": 501,
+          "name": "TikTok Followers",
+          "description": "Real TikTok followers",
+          "price": 1.80,
+          "minOrder": 100,
+          "maxOrder": 10000,
+          "category": "Followers"
+        },
+        {
+          "id": 502,
+          "name": "TikTok Likes",
+          "description": "TikTok video likes",
+          "price": 0.40,
+          "minOrder": 100,
+          "maxOrder": 10000,
+          "category": "Likes"
+        },
+        {
+          "id": 503,
+          "name": "TikTok Views",
+          "description": "TikTok video views",
+          "price": 0.08,
+          "minOrder": 1000,
+          "maxOrder": 1000000,
+          "category": "Views"
+        },
+        {
+          "id": 504,
+          "name": "TikTok Shares",
+          "description": "TikTok video shares",
+          "price": 1.00,
+          "minOrder": 50,
+          "maxOrder": 5000,
+          "category": "Shares"
+        }
+      ]
+    }
+  ],
+  "features": [
+    {
+      "title": "High Quality",
+      "description": "All services are high quality and safe",
+      "icon": "shield"
+    },
+    {
+      "title": "Fast Delivery",
+      "description": "Orders start within 0-6 hours",
+      "icon": "clock"
+    },
+    {
+      "title": "24/7 Support",
+      "description": "Customer support available 24/7",
+      "icon": "support"
+    },
+    {
+      "title": "Secure Payment",
+      "description": "Multiple secure payment methods",
+      "icon": "lock"
+    }
+  ]
+}
