@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import Uheader from "../componets/Uheader";
-import Purchase from "../componets/ui/Purchase";
-import Uborder from "../componets/ui/Uborder";
+import Uheader from "../components/Uheader";
+import Uborder from "../components/ui/Uborder";
+import Product from "../components/ui/Purchase";
 
 const Udashboard = () => {
   const navigate = useNavigate();
@@ -19,7 +19,7 @@ const Udashboard = () => {
       <div>
         <Uheader />
         <Uborder />
-        <Purchase />
+        <Product />
       </div>
     </>
   );

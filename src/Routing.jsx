@@ -4,13 +4,8 @@ import Home from "./pages/Home";
 import NoPage from "./pages/NoPage";
 import Signup from "./pages/Signup";
 import Services from "./pages/Services";
-// import Udashboard from "./pages/Udashboard";
-import Services from "./pages/Services";
-// import Api from "./pages/Api";
-// import Payment from "./pages/Payment";
-// import PayProcess from "./pages/PayProcess";
-// import Orders from "./pages/Orders";
 import ScrollToTop from "./components/ui/ScrollToTop";
+import Udashboard from "./pages/Udashboard";
 
 const Routing = () => {
   return (
@@ -22,13 +17,7 @@ const Routing = () => {
         <Route path="/services" element={<Services />} />
         <Route path="*" element={<NoPage />} />
         <Route path="/login" element={<Home />} />
-        <Route path="/services" element={<Services />} />
-        {/* <Route path="/user/dashboard" element={<Udashboard />} />
-        <Route path="/user/neworders" element={<Udashboard />} />
-        <Route path="/apis" element={<Api />} />
-        <Route path="/user/addfund" element={<Payment />} />
-        <Route path="/user/orders" element={<Orders />} />
-        <Route path="/user/payprocess/:amount" element={<PayProcess />} /> */}
+        <Route path="/user/dashboard" element={<Udashboard />} />
       </Routes>
     </BrowserRouter>
   );
