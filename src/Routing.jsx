@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import NoPage from "./pages/NoPage";
 import Signup from "./pages/Signup";
 // import Udashboard from "./pages/Udashboard";
+import Services from "./pages/Services";
 // import Api from "./pages/Api";
 // import Payment from "./pages/Payment";
 // import PayProcess from "./pages/PayProcess";
@@ -19,6 +20,7 @@ const Routing = () => {
         <Route path="/signup" element={<Signup />} />
         <Route path="*" element={<NoPage />} />
         <Route path="/login" element={<Home />} />
+        <Route path="/services" element={<Services />} />
         {/* <Route path="/user/dashboard" element={<Udashboard />} />
         <Route path="/user/neworders" element={<Udashboard />} />
         <Route path="/apis" element={<Api />} />
