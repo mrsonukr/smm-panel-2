@@ -9,7 +9,6 @@ import {
   Wallet2,
   ListOrdered,
 } from "lucide-react";
-import InstawalaLogo from "./ui/InstawalaLogo";
 
 const Uheader = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -31,7 +30,7 @@ const Uheader = () => {
       <div className="max-w-7xl mx-auto flex justify-between items-center p-4">
         {/* Logo */}
         <div className="text-2xl font-bold">
-          <InstawalaLogo color="white" tcolor="#0284C7" />
+          <img src="/logo.png" className="w-14" alt="Logo" />
         </div>
 
         {/* Desktop Menu */}

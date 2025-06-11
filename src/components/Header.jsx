@@ -19,7 +19,7 @@ const Header = () => {
       <div className="max-w-7xl mx-auto flex justify-between items-center p-4">
         {/* Logo */}
         <div className="text-2xl font-bold">
-          <img src="/logo.png " className="w-14" alt="" />
+          <img src="/logo.png" className="w-14" alt="Logo" />
         </div>
 
         {/* Desktop Menu */}
