@@ -12,9 +12,9 @@ const Popup = () => {
   return (
     <>
       {isVisible && (
-        <div className="fixed inset-0 bg-darkBg bg-opacity-50 flex justify-center items-center z-50 px-4 ">
+        <div className="fixed inset-0 bg-slate-800 bg-opacity-50 flex justify-center items-center z-50 px-4 ">
           {/* Popup Card Container */}
-          <div className="bg-darkBg border-2 border-orange-600 text-white p-6 rounded-lg max-w-lg w-full relative">
+          <div className="bg-slate-800 border-2 border-orange-600 text-white p-6 rounded-lg max-w-lg w-full relative">
             {/* Close Button */}
             <button
               id="popupCloseButton"

@@ -1,7 +1,7 @@
 import React from "react";
-import PaymentForm from "../componets/ui/PaymentForm";
-import Uheader from "../componets/Uheader";
-import Uborder from "../componets/ui/Uborder";
+import Uheader from "../components/Uheader";
+import Uborder from "../components/ui/Uborder";
+import PaymentForm from "../components/ui/PaymentForm";
 
 const Payment = () => {
   return (

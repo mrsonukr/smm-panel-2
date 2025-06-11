@@ -1,6 +1,6 @@
 import { QrCode } from 'lucide-react';
 import React from 'react';
-import Qrcode from '../componets/ui/Qrcode';
+import Qrcode from '../components/ui/Qrcode';
 
 const PayProcess = () => {
     return (

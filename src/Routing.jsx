@@ -6,18 +6,67 @@ import Signup from "./pages/Signup";
 import Services from "./pages/Services";
 import ScrollToTop from "./components/ui/ScrollToTop";
 import Udashboard from "./pages/Udashboard";
+import ProtectedRoute from "./components/ProtectedRoute";
+import Payment from "./pages/Payment";
+import PayProcess from "./pages/PayProcess";
+import Orders from "./pages/Orders";
 
 const Routing = () => {
   return (
     <BrowserRouter>
-      <ScrollToTop /> {/* Place it inside BrowserRouter */}
+      <ScrollToTop />
       <Routes>
+        {/* Public Routes */}
         <Route path="/" element={<Home />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/services" element={<Services />} />
-        <Route path="*" element={<NoPage />} />
         <Route path="/login" element={<Home />} />
-        <Route path="/user/dashboard" element={<Udashboard />} />
+
+        {/* Protected Routes */}
+        <Route 
+          path="/user/dashboard" 
+          element={
+            <ProtectedRoute>
+              <Udashboard />
+            </ProtectedRoute>
+          } 
+        />
+        <Route 
+          path="/user/neworders" 
+          element={
+            <ProtectedRoute>
+              <Udashboard />
+            </ProtectedRoute>
+          } 
+        />
+        <Route 
+          path="/user/orders" 
+          element={
+            <ProtectedRoute>
+              <Orders />
+            </ProtectedRoute>
+          } 
+        />
+        <Route 
+          path="/user/addfund" 
+          element={
+            <ProtectedRoute>
+              <Payment />
+            </ProtectedRoute>
+          } 
+        />
+        <Route 
+          path="/user/payprocess/:amount" 
+          element={
+            <ProtectedRoute>
+              <PayProcess />
+            </ProtectedRoute>
+          } 
+        />
+        
+
+        {/* Catch-All Route */}
+        <Route path="*" element={<NoPage />} />
       </Routes>
     </BrowserRouter>
   );

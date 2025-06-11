@@ -1,6 +1,6 @@
-import OrdersHistory from "../componets/ui/OrdersHistory";
-import Uheader from "../componets/Uheader";
-import Uborder from "../componets/ui/Uborder";
+import OrdersHistory from "../components/ui/OrdersHistory";
+import Uheader from "../components/Uheader";
+import Uborder from "../components/ui/Uborder";
 const Orders = () => {
   return (
     <div>
