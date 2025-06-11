@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import NoPage from "./pages/NoPage";
 import Signup from "./pages/Signup";
+import Services from "./pages/Services";
 // import Udashboard from "./pages/Udashboard";
 import Services from "./pages/Services";
 // import Api from "./pages/Api";
@@ -18,6 +19,7 @@ const Routing = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/services" element={<Services />} />
         <Route path="*" element={<NoPage />} />
         <Route path="/login" element={<Home />} />
         <Route path="/services" element={<Services />} />
