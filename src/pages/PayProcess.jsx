@@ -1,11 +1,9 @@
-import { QrCode } from 'lucide-react';
 import React from 'react';
-import Qrcode from '../components/ui/Qrcode';
-
+import BharatPeQR from '../components/ui/BharatPeQR';
 const PayProcess = () => {
     return (
         <div>
-            <Qrcode/>
+            <BharatPeQR/>
         </div>
     );
 }

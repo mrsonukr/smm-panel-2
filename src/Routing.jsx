@@ -10,6 +10,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import Payment from "./pages/Payment";
 import PayProcess from "./pages/PayProcess";
 import Orders from "./pages/Orders";
+import Api from "./pages/Api";
 
 const Routing = () => {
   return (
@@ -21,6 +22,7 @@ const Routing = () => {
         <Route path="/signup" element={<Signup />} />
         <Route path="/services" element={<Services />} />
         <Route path="/login" element={<Home />} />
+        <Route path="/apis" element={<Api />} />
 
         {/* Protected Routes */}
         <Route 
