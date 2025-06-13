@@ -3,9 +3,14 @@ import { useNavigate } from "react-router-dom";
 import PayInfo from "./PayInfo";
 import TransactionTable from "./TransactionTable";
 
+// Simple encryption function (for demo purposes - use proper encryption in production)
+const encryptPrice = (price) => {
+  return btoa(price.toString()).replace(/=/g, '');
+};
+
 export default function PaymentForm() {
   const [name, setName] = useState("");
-  const [amount, setAmount] = useState("");
+  const [amount, setAmount] = useState("150"); // Default to 150
   const [errors, setErrors] = useState({ name: "", amount: "" });
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
@@ -34,8 +39,8 @@ export default function PaymentForm() {
     }
 
     const parsedAmount = parseInt(amount, 10);
-    if (!amount || parsedAmount < 50 || parsedAmount > 2500) {
-      newErrors.amount = "Amount must be between ₹50 and ₹2500";
+    if (!amount || parsedAmount < 150 || parsedAmount > 2500) {
+      newErrors.amount = "Amount must be between ₹150 and ₹2500";
       valid = false;
     }
 
@@ -43,8 +48,9 @@ export default function PaymentForm() {
 
     if (valid) {
       setIsLoading(true);
-      // Redirect to /user/payprocess/:amount
-      navigate(`/user/payprocess/${amount}`);
+      // Encrypt the amount and redirect to /user/payprocess/:encrypted-price
+      const encryptedPrice = encryptPrice(amount);
+      navigate(`/user/payprocess/${encryptedPrice}`);
       setIsLoading(false);
     }
   };
@@ -87,7 +93,7 @@ export default function PaymentForm() {
               value={amount}
               onChange={handleAmountChange}
               className="w-full p-2 bg-transparent text-black focus:outline-none disabled:opacity-50"
-              placeholder="Enter amount (50 - 2500)"
+              placeholder="Enter amount (150 - 2500)"
               disabled={isLoading}
             />
           </div>
@@ -103,12 +109,16 @@ export default function PaymentForm() {
 
         {/* Suggested Amounts */}
         <div className="flex justify-center gap-4">
-          {[50, 250, 500, 1000].map((suggestedAmount) => (
+          {[150, 250, 500, 1000].map((suggestedAmount) => (
             <button
               key={suggestedAmount}
               type="button"
               onClick={() => handleSuggestedAmount(suggestedAmount)}
-              className="px-4 py-2 bg-cyan-100 text-cyan-600 font-semibold rounded-lg hover:bg-cyan-200 transition disabled:opacity-50"
+              className={`px-4 py-2 font-semibold rounded-lg transition disabled:opacity-50 ${
+                amount === suggestedAmount.toString()
+                  ? "bg-cyan-600 text-white"
+                  : "bg-cyan-100 text-cyan-600 hover:bg-cyan-200"
+              }`}
               disabled={isLoading}
             >
               ₹{suggestedAmount}

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { ChevronDown } from "lucide-react";
 import data from "./api.json"; // Import api.json
-import Popup from "./Popup"; // Import the Popup component
+import OrderSuccessPopup from "./OrderSuccessPopup"; // Import the new popup
 
 const Product = () => {
   const [categories, setCategories] = useState([]);
@@ -10,14 +10,48 @@ const Product = () => {
   const [quantity, setQuantity] = useState("");
   const [link, setLink] = useState("");
   const [error, setError] = useState("");
-  const [showBalanceError, setShowBalanceError] = useState(false);
-  const [showPopup, setShowPopup] = useState(false); // State for Popup after successful submission
-  const [userBalance, setUserBalance] = useState(0.00); // Hardcoded balance for testing
-  const [popupKey, setPopupKey] = useState(0); // New state for forcing Popup remount
+  const [userBalance, setUserBalance] = useState(0.00);
+  const [showSuccessPopup, setShowSuccessPopup] = useState(false);
+  const [orderData, setOrderData] = useState(null);
 
   // Set categories from api.json on mount
   useEffect(() => {
     setCategories(data.categories);
+  }, []);
+
+  // Load wallet balance from localStorage
+  useEffect(() => {
+    const savedBalance = localStorage.getItem("walletBalance");
+    if (savedBalance) {
+      setUserBalance(parseFloat(savedBalance));
+    }
+  }, []);
+
+  // Update balance when localStorage changes (for real-time updates)
+  useEffect(() => {
+    const handleStorageChange = () => {
+      const savedBalance = localStorage.getItem("walletBalance");
+      if (savedBalance) {
+        setUserBalance(parseFloat(savedBalance));
+      }
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+    
+    // Also listen for custom events for same-tab updates
+    const handleBalanceUpdate = () => {
+      const savedBalance = localStorage.getItem("walletBalance");
+      if (savedBalance) {
+        setUserBalance(parseFloat(savedBalance));
+      }
+    };
+
+    window.addEventListener('walletBalanceUpdated', handleBalanceUpdate);
+
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+      window.removeEventListener('walletBalanceUpdated', handleBalanceUpdate);
+    };
   }, []);
 
   // Ensure a category is selected
@@ -45,11 +79,13 @@ const Product = () => {
       ? (quantity * service.charge_per_unit).toFixed(2)
       : "";
 
+  const generateOrderId = () => {
+    return Math.floor(10000 + Math.random() * 90000).toString();
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     setError("");
-    setShowBalanceError(false);
-    setShowPopup(false); // Reset popup visibility
 
     // Validation
     if (!link.trim()) {
@@ -64,32 +100,45 @@ const Product = () => {
       return;
     }
 
-    if (parseFloat(totalCharge) > userBalance) {
-      setShowBalanceError(true);
-      setPopupKey((prev) => prev + 1); // Update key for balance error
+    const totalCost = parseFloat(totalCharge);
+
+    if (totalCost > userBalance) {
+      setError("Insufficient balance. Please add funds to your wallet.");
       return;
     }
 
-    // Simulate order submission
-    try {
-      const orderData = {
-        categoryId: category._id || category.name,
-        serviceName: service.name,
-        quantity,
-        link,
-        totalCharge: parseFloat(totalCharge)
-      };
-      console.log("Order submitted:", orderData);
-      alert("Order placed successfully");
-      setUserBalance(userBalance - parseFloat(totalCharge)); // Deduct balance
-      setShowPopup(true); // Show popup after successful submission
-      setPopupKey((prev) => prev + 1); // Update key to force remount
-      setQuantity("");
-      setLink("");
-    } catch (err) {
-      console.error("Order submission error:", err);
-      setError("Failed to place order");
-    }
+    // Create order data
+    const newOrderData = {
+      orderId: generateOrderId(),
+      categoryName: category.name,
+      serviceName: service.name,
+      quantity: quantity,
+      link: link.trim(),
+      totalCharge: totalCost.toFixed(2),
+      timestamp: new Date().toISOString()
+    };
+
+    // Deduct balance and update localStorage
+    const newBalance = userBalance - totalCost;
+    setUserBalance(newBalance);
+    localStorage.setItem("walletBalance", newBalance.toString());
+    
+    // Trigger custom event for balance update
+    window.dispatchEvent(new Event('walletBalanceUpdated'));
+
+    // Show success popup
+    setOrderData(newOrderData);
+    setShowSuccessPopup(true);
+
+    // Reset form
+    setQuantity("");
+    setLink("");
+    setError("");
+  };
+
+  const handleClosePopup = () => {
+    setShowSuccessPopup(false);
+    setOrderData(null);
   };
 
   return (
@@ -206,25 +255,24 @@ const Product = () => {
             type="submit"
             className="w-full bg-cyan-600 text-white font-semibold py-2 rounded-md hover:bg-cyan-700 transition"
           >
-            Submit
+            Submit Order
           </button>
 
           {/* Errors */}
-          {showBalanceError && (
-            <div className="bg-red-100 text-red-500 p-3 rounded-md leading-relaxed">
-              <p>Insufficient balance. Please add funds.</p>
-            </div>
-          )}
           {error && (
-            <div className="bg-yellow-100 text-yellow-700 p-3 rounded-md leading-relaxed">
-              <p>{error}</p>
+            <div className="bg-red-100 border border-red-400 text-red-700 p-3 rounded-md">
+              <p className="font-medium">{error}</p>
             </div>
           )}
         </div>
       </form>
 
-      {/* Render Popup after successful submission or balance error with unique key */}
-      {(showPopup || showBalanceError) && <Popup userBalance={userBalance} key={popupKey} />}
+      {/* Order Success Popup */}
+      <OrderSuccessPopup
+        isVisible={showSuccessPopup}
+        onClose={handleClosePopup}
+        orderData={orderData}
+      />
     </div>
   );
 };

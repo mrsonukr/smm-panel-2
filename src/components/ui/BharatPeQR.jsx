@@ -1,15 +1,47 @@
 import React, { useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import QRCode from "react-qr-code";
 import { ArrowLeft, UploadCloud } from "lucide-react";
 
+// Simple decryption function (matches the encryption in PaymentForm)
+const decryptPrice = (encryptedPrice) => {
+  try {
+    // Add padding if needed
+    const padded = encryptedPrice + '='.repeat((4 - encryptedPrice.length % 4) % 4);
+    return atob(padded);
+  } catch (error) {
+    console.error('Decryption error:', error);
+    return null;
+  }
+};
+
 const BharatPeQR = () => {
-  const upiUrl = "upi://pay?pa=merchant@upi&pn=MerchantName&am=150&cu=INR";
+  const { amount: encryptedAmount } = useParams();
+  const navigate = useNavigate();
+  const [amount, setAmount] = useState("");
   const [timeLeft, setTimeLeft] = useState(180); // 3 minutes = 180 seconds
   const [view, setView] = useState("qr"); // qr, details, processing, failed
   const [utr, setUtr] = useState("");
   const [utrError, setUtrError] = useState(""); // For UTR validation error
   const [imageError, setImageError] = useState(""); // For image validation error
   const [dots, setDots] = useState("."); // For loading animation in processing view
+
+  // Decrypt amount on component mount
+  useEffect(() => {
+    if (encryptedAmount) {
+      const decryptedAmount = decryptPrice(encryptedAmount);
+      if (decryptedAmount && !isNaN(decryptedAmount) && parseInt(decryptedAmount) >= 150) {
+        setAmount(decryptedAmount);
+      } else {
+        // Invalid or tampered amount, redirect back
+        navigate("/user/addfund");
+      }
+    } else {
+      navigate("/user/addfund");
+    }
+  }, [encryptedAmount, navigate]);
+
+  const upiUrl = `upi://pay?pa=merchant@upi&pn=MerchantName&am=${amount}&cu=INR`;
 
   // Timer for QR code validity
   useEffect(() => {
@@ -80,8 +112,7 @@ const BharatPeQR = () => {
       // For demo, assume "123456789012" is the only valid UTR
       if (utr === "123456789012") {
         alert("Payment processed successfully!");
-        setView("qr");
-        setTimeLeft(180);
+        navigate("/user/dashboard");
       } else {
         setView("failed");
         setImageError(""); // Clear image error for UTR failure
@@ -109,8 +140,7 @@ const BharatPeQR = () => {
       // For demo, assume only files named "valid_screenshot.jpg" are valid
       if (file.name === "valid_screenshot.jpg") {
         alert(`Payment processed successfully for ${file.name}!`);
-        setView("qr");
-        setTimeLeft(180);
+        navigate("/user/dashboard");
       } else {
         setView("failed");
         setUtrError(""); // Clear UTR error for image failure
@@ -125,13 +155,37 @@ const BharatPeQR = () => {
     setImageError("");
   };
 
+  const handleGoBack = () => {
+    navigate("/user/addfund");
+  };
+
+  // Don't render if amount is not set (still decrypting or invalid)
+  if (!amount) {
+    return (
+      <div className="bg-sky-100 h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-700 mx-auto mb-4"></div>
+          <p>Loading payment details...</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="bg-sky-100 h-screen flex items-center justify-center overflow-hidden p-4">
       <div className="max-w-[300px] w-full shadow-md bg-white space-y-4 rounded-md">
         {/* Header (consistent across all views) */}
-        <div className="bg-neutral-700 p-4 text-white rounded-t-md">
-          <h2 className="text-xl font-semibold">BharatPe Merchant</h2>
-          <p className="text-neutral-300 text-sm">Scan to pay ₹150</p>
+        <div className="bg-neutral-700 p-4 text-white rounded-t-md relative">
+          {view !== "qr" && (
+            <button
+              onClick={view === "details" ? handleBackClick : handleGoBack}
+              className="absolute left-2 top-1/2 transform -translate-y-1/2 text-white hover:text-gray-300"
+            >
+              <ArrowLeft className="w-5 h-5" />
+            </button>
+          )}
+          <h2 className="text-xl font-semibold text-center">BharatPe Merchant</h2>
+          <p className="text-neutral-300 text-sm text-center">Scan to pay ₹{amount}</p>
         </div>
 
         {view === "qr" ? (
@@ -163,13 +217,6 @@ const BharatPeQR = () => {
           // Payment Details View
           <>
             <div className="p-4 space-y-4">
-              <button
-                className="flex items-center text-blue-600 text-sm font-medium hover:underline"
-                onClick={handleBackClick}
-              >
-                <ArrowLeft className="w-4 h-4 mr-1" />
-                Back to QR Code
-              </button>
               <div>
                 <label className="text-sm text-gray-700 font-medium mb-1 block">
                   UTR Number

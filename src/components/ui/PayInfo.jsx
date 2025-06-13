@@ -5,8 +5,8 @@ const PayInfo = () => {
       <h3 className="text-xl">Instruction</h3>
       <ul className="list-decimal pl-5 space-y-2 mt-4">
         <li>
-          Please enter an amount above ₹50 and then click "Pay Now".{" "}
-          <span className="text-green-600">(Min 50Rs)</span>
+          Please enter an amount above ₹150 and then click "Pay Now".{" "}
+          <span className="text-green-600">(Min 150Rs)</span>
         </li>
         <li>Scan QR Code and Pay</li>
         <li>Enter the 12 Digits UTR ID Above the Instruction.</li>

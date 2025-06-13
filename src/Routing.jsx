@@ -11,6 +11,7 @@ import Payment from "./pages/Payment";
 import PayProcess from "./pages/PayProcess";
 import Orders from "./pages/Orders";
 import Api from "./pages/Api";
+import Wallet from "./pages/Wallet";
 
 const Routing = () => {
   return (
@@ -46,6 +47,14 @@ const Routing = () => {
           element={
             <ProtectedRoute>
               <Orders />
+            </ProtectedRoute>
+          } 
+        />
+        <Route 
+          path="/user/wallet" 
+          element={
+            <ProtectedRoute>
+              <Wallet />
             </ProtectedRoute>
           } 
         />

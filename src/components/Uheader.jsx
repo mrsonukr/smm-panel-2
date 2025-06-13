@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import {
   Menu,
@@ -12,9 +12,33 @@ import {
 
 const Uheader = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [walletAmount, setWalletAmount] = useState(0.0);
   const navigate = useNavigate();
   const location = useLocation();
-  const walletAmount = 0.0; // Can be dynamic
+
+  // Load wallet balance from localStorage
+  useEffect(() => {
+    const updateBalance = () => {
+      const savedBalance = localStorage.getItem("walletBalance");
+      if (savedBalance) {
+        setWalletAmount(parseFloat(savedBalance));
+      }
+    };
+
+    // Initial load
+    updateBalance();
+
+    // Listen for storage changes (cross-tab updates)
+    window.addEventListener('storage', updateBalance);
+    
+    // Listen for custom events (same-tab updates)
+    window.addEventListener('walletBalanceUpdated', updateBalance);
+
+    return () => {
+      window.removeEventListener('storage', updateBalance);
+      window.removeEventListener('walletBalanceUpdated', updateBalance);
+    };
+  }, []);
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -56,6 +80,15 @@ const Uheader = () => {
           >
             <ListOrdered size={18} className="inline mr-1" />
             Orders
+          </Link>
+          <Link
+            to="/user/wallet"
+            className={`font-semibold px-4 py-2 rounded-md ${isActive(
+              "/user/wallet"
+            )}`}
+          >
+            <Wallet2 size={18} className="inline mr-1" />
+            Wallet
           </Link>
           <Link
             to="/user/addfund"
@@ -112,6 +145,15 @@ const Uheader = () => {
           >
             <ListOrdered size={18} />
             <span>Orders</span>
+          </Link>
+          <Link
+            to="/user/wallet"
+            className={`flex items-center space-x-2 px-4 py-2 rounded-md font-semibold ${isActive(
+              "/user/wallet"
+            )}`}
+          >
+            <Wallet2 size={18} />
+            <span>Wallet</span>
           </Link>
           <Link
             to="/user/addfund"
