@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { ChevronDown } from "lucide-react";
 import data from "./api.json"; // Import api.json
 import OrderSuccessPopup from "./OrderSuccessPopup"; // Import the new popup
+import { saveOrder, simulateOrderProcessing } from "../../utils/orderStorage";
 
 const Product = () => {
   const [categories, setCategories] = useState([]);
@@ -117,6 +118,10 @@ const Product = () => {
       totalCharge: totalCost.toFixed(2),
       timestamp: new Date().toISOString()
     };
+
+    // Save order to localStorage and start processing simulation
+    const savedOrder = saveOrder(newOrderData);
+    simulateOrderProcessing(savedOrder.orderId);
 
     // Deduct balance and update localStorage
     const newBalance = userBalance - totalCost;

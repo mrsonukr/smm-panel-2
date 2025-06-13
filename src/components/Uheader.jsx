@@ -8,6 +8,7 @@ import {
   ShoppingCart,
   Wallet2,
   ListOrdered,
+  HelpCircle,
 } from "lucide-react";
 
 const Uheader = () => {
@@ -29,14 +30,14 @@ const Uheader = () => {
     updateBalance();
 
     // Listen for storage changes (cross-tab updates)
-    window.addEventListener('storage', updateBalance);
-    
+    window.addEventListener("storage", updateBalance);
+
     // Listen for custom events (same-tab updates)
-    window.addEventListener('walletBalanceUpdated', updateBalance);
+    window.addEventListener("walletBalanceUpdated", updateBalance);
 
     return () => {
-      window.removeEventListener('storage', updateBalance);
-      window.removeEventListener('walletBalanceUpdated', updateBalance);
+      window.removeEventListener("storage", updateBalance);
+      window.removeEventListener("walletBalanceUpdated", updateBalance);
     };
   }, []);
 
@@ -82,15 +83,6 @@ const Uheader = () => {
             Orders
           </Link>
           <Link
-            to="/user/wallet"
-            className={`font-semibold px-4 py-2 rounded-md ${isActive(
-              "/user/wallet"
-            )}`}
-          >
-            <Wallet2 size={18} className="inline mr-1" />
-            Wallet
-          </Link>
-          <Link
             to="/user/addfund"
             className={`font-semibold px-4 py-2 rounded-md ${isActive(
               "/user/addfund"
@@ -99,6 +91,16 @@ const Uheader = () => {
             <PlusCircle size={18} className="inline mr-1" />
             Add Fund
           </Link>
+          <a
+            href="https://t.me/mssonukr"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-semibold px-4 py-2 rounded-md hover:bg-sky-500 transition"
+          >
+            <HelpCircle size={18} className="inline mr-1" />
+            Help & Support
+          </a>
+
           <button
             onClick={handleLogout}
             className="font-semibold px-4 py-2 rounded-md hover:bg-sky-500"
@@ -147,15 +149,6 @@ const Uheader = () => {
             <span>Orders</span>
           </Link>
           <Link
-            to="/user/wallet"
-            className={`flex items-center space-x-2 px-4 py-2 rounded-md font-semibold ${isActive(
-              "/user/wallet"
-            )}`}
-          >
-            <Wallet2 size={18} />
-            <span>Wallet</span>
-          </Link>
-          <Link
             to="/user/addfund"
             className={`flex items-center space-x-2 px-4 py-2 rounded-md font-semibold ${isActive(
               "/user/addfund"
@@ -164,6 +157,16 @@ const Uheader = () => {
             <PlusCircle size={18} />
             <span>Add Fund</span>
           </Link>
+          <a
+            href="https://t.me/mssonukr"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center space-x-2 px-4 py-2 rounded-md font-semibold w-full text-left hover:bg-sky-500 transition"
+          >
+            <HelpCircle size={18} />
+            <span>Help & Support</span>
+          </a>
+
           <button
             onClick={handleLogout}
             className="flex items-center space-x-2 px-4 py-2 rounded-md font-semibold w-full text-left hover:bg-sky-500"
