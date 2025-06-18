@@ -7,10 +7,11 @@ import { ArrowLeft, UploadCloud } from "lucide-react";
 const decryptPrice = (encryptedPrice) => {
   try {
     // Add padding if needed
-    const padded = encryptedPrice + '='.repeat((4 - encryptedPrice.length % 4) % 4);
+    const padded =
+      encryptedPrice + "=".repeat((4 - (encryptedPrice.length % 4)) % 4);
     return atob(padded);
   } catch (error) {
-    console.error('Decryption error:', error);
+    console.error("Decryption error:", error);
     return null;
   }
 };
@@ -30,7 +31,11 @@ const BharatPeQR = () => {
   useEffect(() => {
     if (encryptedAmount) {
       const decryptedAmount = decryptPrice(encryptedAmount);
-      if (decryptedAmount && !isNaN(decryptedAmount) && parseInt(decryptedAmount) >= 150) {
+      if (
+        decryptedAmount &&
+        !isNaN(decryptedAmount) &&
+        parseInt(decryptedAmount) >= 150
+      ) {
         setAmount(decryptedAmount);
       } else {
         // Invalid or tampered amount, redirect back
@@ -41,8 +46,7 @@ const BharatPeQR = () => {
     }
   }, [encryptedAmount, navigate]);
 
-  const upiUrl = `upi://pay?pa=merchant@upi&pn=MerchantName&am=${amount}&cu=INR`;
-
+  const upiUrl = `upi://pay?pa=9001594179@mbk&pn=Real%20Panel%20Hub&am=${amount}&cu=INR`;
   // Timer for QR code validity
   useEffect(() => {
     if (view === "qr") {
@@ -184,8 +188,12 @@ const BharatPeQR = () => {
               <ArrowLeft className="w-5 h-5" />
             </button>
           )}
-          <h2 className="text-xl font-semibold text-center">BharatPe Merchant</h2>
-          <p className="text-neutral-300 text-sm text-center">Scan to pay ₹{amount}</p>
+          <h2 className="text-xl font-semibold text-center">
+            BharatPe Merchant
+          </h2>
+          <p className="text-neutral-300 text-sm text-center">
+            Scan to pay ₹{amount}
+          </p>
         </div>
 
         {view === "qr" ? (
@@ -250,9 +258,11 @@ const BharatPeQR = () => {
                 <span className="px-2 text-sm text-gray-500">OR</span>
                 <hr className="flex-grow border-gray-300" />
               </div>
-              <label className={`block border-2 border-dashed ${
-                imageError ? "border-red-500" : "border-blue-500"
-              } text-center py-6 rounded-md cursor-pointer hover:bg-blue-50 transition text-blue-600`}>
+              <label
+                className={`block border-2 border-dashed ${
+                  imageError ? "border-red-500" : "border-blue-500"
+                } text-center py-6 rounded-md cursor-pointer hover:bg-blue-50 transition text-blue-600`}
+              >
                 <div className="flex flex-col items-center justify-center space-y-2">
                   <UploadCloud className="w-8 h-8" />
                   <span className="font-semibold">Upload Screenshot</span>

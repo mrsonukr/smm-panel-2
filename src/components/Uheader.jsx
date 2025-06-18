@@ -92,7 +92,7 @@ const Uheader = () => {
             Add Fund
           </Link>
           <a
-            href="https://t.me/mssonukr"
+            href="https://wa.me/917217622706?text=Hi%2C%20I%20need%20support."
             target="_blank"
             rel="noopener noreferrer"
             className="font-semibold px-4 py-2 rounded-md hover:bg-sky-500 transition"
@@ -158,7 +158,7 @@ const Uheader = () => {
             <span>Add Fund</span>
           </Link>
           <a
-            href="https://t.me/mssonukr"
+            href="https://wa.me/917217622706?text=Hi%2C%20I%20need%20support."
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center space-x-2 px-4 py-2 rounded-md font-semibold w-full text-left hover:bg-sky-500 transition"
