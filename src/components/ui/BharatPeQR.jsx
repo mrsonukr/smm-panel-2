@@ -46,8 +46,7 @@ const BharatPeQR = () => {
     }
   }, [encryptedAmount, navigate]);
 
-  // 👇 Replace static UPI string with env-based dynamic one
-  const upiUrl = `${import.meta.env.VITE_UPI_BASE_URL}&am=${amount}&cu=INR`;
+const upiUrl = `upi://pay?pa=${import.meta.env.VITE_UPI_ID}&pn=Real%20Panel%20Hub&am=${amount}&cu=INR`;
 
   // Timer for QR code validity
   useEffect(() => {
