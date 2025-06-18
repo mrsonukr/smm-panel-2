@@ -46,7 +46,9 @@ const BharatPeQR = () => {
     }
   }, [encryptedAmount, navigate]);
 
-  const upiUrl = `upi://pay?pa=9001594179@mbk&pn=Real%20Panel%20Hub&am=${amount}&cu=INR`;
+  // 👇 Replace static UPI string with env-based dynamic one
+  const upiUrl = `${import.meta.env.VITE_UPI_BASE_URL}&am=${amount}&cu=INR`;
+
   // Timer for QR code validity
   useEffect(() => {
     if (view === "qr") {
